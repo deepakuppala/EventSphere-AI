@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Ticket | EventSphere AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Poppins,sans-serif;
+        }
+
+        body{
+
+            background:#0f172a;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            padding:40px;
+
+        }
+
+        .ticket{
+
+            width:950px;
+            background:white;
+            border-radius:25px;
+            overflow:hidden;
+            box-shadow:0 20px 60px rgba(0,0,0,.4);
+
+        }
+
+        .header{
+
+            background:linear-gradient(135deg,#2563eb,#06b6d4);
+            padding:35px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            color:white;
+
+        }
+
+        .logo{
+
+            font-size:34px;
+            font-weight:700;
+
+        }
+
+        .ticket-id{
+
+            text-align:right;
+
+        }
+
+        .ticket-id h2{
+
+            font-size:16px;
+
+        }
+
+        .ticket-id h1{
+
+            margin-top:10px;
+            font-size:30px;
+
+        }
+
+        .banner{
+
+            width:100%;
+            height:260px;
+            object-fit:cover;
+
+        }
+
+        .content{
+
+            display:grid;
+            grid-template-columns:2fr 1fr;
+
+        }
+
+        .left{
+
+            padding:40px;
+
+        }
+
+        .right{
+
+            background:#f8fafc;
+            padding:40px;
+            border-left:2px dashed #cbd5e1;
+
+        }
+
+        .title{
+
+            font-size:34px;
+            font-weight:700;
+            margin-bottom:25px;
+            color:#0f172a;
+
+        }
+
+        .info{
+
+            display:flex;
+            justify-content:space-between;
+            margin:18px 0;
+            font-size:18px;
+
+        }
+
+        .label{
+
+            font-weight:600;
+            color:#475569;
+
+        }
+
+        .value{
+
+            font-weight:700;
+            color:#111827;
+
+        }
+
+        .status{
+
+            background:#16a34a;
+            color:white;
+            padding:8px 18px;
+            border-radius:30px;
+            display:inline-block;
+            margin-top:25px;
+            font-weight:600;
+
+        }
+
+        .qr{
+
+            margin-top:30px;
+            text-align:center;
+
+        }
+
+        .qr img{
+
+            width:170px;
+            height:170px;
+
+        }
+
+        .buttons{
+
+            display:flex;
+            gap:20px;
+            padding:30px;
+            background:#f1f5f9;
+
+        }
+
+        button{
+
+            flex:1;
+            padding:16px;
+            border:none;
+            border-radius:12px;
+            font-size:18px;
+            cursor:pointer;
+            transition:.3s;
+
+        }
+
+        .print{
+
+            background:#2563eb;
+            color:white;
+
+        }
+
+        .download{
+
+            background:#16a34a;
+            color:white;
+
+        }
+
+        button:hover{
+
+            transform:translateY(-2px);
+
+        }
+
+        @media(max-width:850px){
+
+            .content{
+
+                grid-template-columns:1fr;
+
+            }
+
+            .right{
+
+                border-left:none;
+                border-top:2px dashed #cbd5e1;
+
+            }
+
+            .header{
+
+                flex-direction:column;
+                gap:15px;
+                text-align:center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="ticket">
+
+    <div class="header">
+
+        <div class="logo">
+
+            🎟 EventSphere AI
+
+        </div>
+
+        <div class="ticket-id">
+
+            <h2>Ticket Number</h2>
+
+            <h1>
+                EVT-
+                <span th:text="${booking.bookingId}"></span>
+            </h1>
+
+        </div>
+
+    </div>
+
+    <img class="banner"
+         th:src="${booking.event.imageUrl}">
+
+    <div class="content">
+
+        <div class="left">
+
+            <h1 class="title"
+                th:text="${booking.event.eventName}">
+            </h1>
+            <div class="info">
+
+    <span class="label">
+        👤 Booked By
+    </span>
+
+                <span class="value"
+                      th:text="${booking.user.name}">
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        📅 Event Date
+    </span>
+
+                <span class="value"
+                      th:text="${booking.event.eventDate}">
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        ⏰ Time
+    </span>
+
+                <span th:text="${#temporals.format(booking.event.eventTime,'hh:mm a')}"></span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        📍 Venue
+    </span>
+
+                <span class="value"
+                      th:text="${booking.event.venue.venueName}">
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        🎫 Tickets
+    </span>
+
+                <span class="value"
+                      th:text="${booking.numberOfTickets}">
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        💰 Amount Paid
+    </span>
+
+                <span class="value">
+
+        ₹<span th:text="${payment.amount}"></span>
+
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        💳 Payment
+    </span>
+
+                <span class="value"
+                      th:text="${payment.paymentMethod}">
+    </span>
+
+            </div>
+
+            <div class="info">
+
+    <span class="label">
+        🆔 Transaction
+    </span>
+
+                <span class="value"
+                      th:text="${payment.transactionId}">
+    </span>
+
+            </div>
+
+            <div class="status">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span th:text="${payment.paymentStatus}"></span>
+
+            </div>
+
+        </div>
+
+        <div class="right">
+
+            <div class="qr">
+
+                <img
+                        th:src="'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BOOKING-'+${booking.bookingId}">
+                <h3 style="margin-top:20px;">
+
+                    Scan at Entry
+
+                </h3>
+
+                <p style="margin-top:10px;color:#64748b;">
+
+                    Present this QR code at the venue entrance.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button class="print"
+                onclick="window.print()">
+
+            <i class="fa-solid fa-print"></i>
+
+            Print Ticket
+
+        </button>
+
+        <button class="download"
+                onclick="downloadTicket()">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download PDF
+
+        </button>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+
+        function downloadTicket(){
+
+            const element =
+                document.querySelector(".ticket");
+
+            const opt = {
+
+                margin:0,
+
+                filename:"EventSphere_Ticket.pdf",
+
+                image:{
+                    type:"jpeg",
+                    quality:1
+                },
+
+                html2canvas:{
+                    scale:3,
+                    useCORS:true
+                },
+
+                jsPDF:{
+                    unit:"px",
+                    format:[950,750],
+                    orientation:"landscape"
+                }
+
+            };
+
+            html2pdf().set(opt).from(element).save();
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Events</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            padding:40px;
+        }
+
+        .header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:35px;
+        }
+
+        .title{
+            font-size:32px;
+            font-weight:700;
+        }
+
+        .actions{
+            display:flex;
+            gap:15px;
+        }
+
+        .search{
+            padding:12px 18px;
+            width:320px;
+            border:none;
+            border-radius:30px;
+            outline:none;
+        }
+
+        .add-btn{
+            background:#2563eb;
+            color:white;
+            padding:12px 22px;
+            border-radius:30px;
+            text-decoration:none;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .add-btn:hover{
+            background:#1d4ed8;
+        }
+
+        .table-box{
+            background:#1e293b;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 20px 40px rgba(0,0,0,.3);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        thead{
+            background:#111827;
+        }
+
+        th{
+            padding:18px;
+            text-align:left;
+        }
+
+        td{
+            padding:18px;
+            border-bottom:1px solid rgba(255,255,255,.08);
+        }
+
+        tr:hover{
+            background:#334155;
+            transition:.3s;
+        }
+
+        img{
+            width:90px;
+            height:60px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+        .status{
+            padding:6px 14px;
+            border-radius:20px;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        .upcoming{
+            background:#22c55e;
+        }
+
+        .completed{
+            background:#64748b;
+        }
+
+        .cancelled{
+            background:#ef4444;
+        }
+
+        .edit{
+            background:#f59e0b;
+            padding:8px 14px;
+            border-radius:8px;
+            color:white;
+            text-decoration:none;
+            margin-right:8px;
+        }
+
+        .delete{
+            background:#ef4444;
+            padding:8px 14px;
+            border-radius:8px;
+            color:white;
+            text-decoration:none;
+        }
+
+        .edit:hover,
+        .delete:hover{
+            opacity:.85;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="title">
+        🎉 Event Management
+    </div>
+
+    <div class="actions">
+
+        <input
+                type="text"
+                class="search"
+                id="searchInput"
+                placeholder="Search Event...">
+
+        <a href="/admin/events/add" class="add-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Event
+        </a>
+
+    </div>
+
+</div>
+
+<div class="table-box">
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>Image</th>
+
+            <th>Name</th>
+
+            <th>Date</th>
+
+            <th>Price</th>
+
+            <th>Organizer</th>
+
+            <th>Status</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="event : ${events}">
+
+            <td>
+
+                <img th:src="${event.imageUrl}">
+
+            </td>
+
+            <td th:text="${event.eventName}"></td>
+
+            <td th:text="${event.eventDate}"></td>
+
+            <td>
+                ₹ <span th:text="${event.ticketPrice}"></span>
+            </td>
+
+            <td th:text="${event.organizer}"></td>
+
+            <td>
+
+<span
+        class="status upcoming"
+        th:text="${event.status}">
+</span>
+
+            </td>
+
+            <td>
+
+                <a
+                        th:href="@{/admin/events/edit/{id}(id=${event.id})}"
+                        class="edit">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </a>
+
+                <a
+                        th:href="@{/admin/events/delete/{id}(id=${event.id})}"
+                        class="delete"
+                        onclick="return confirm('Delete this event?')">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+    const search=document.getElementById("searchInput");
+
+    search.addEventListener("keyup",function(){
+
+        let filter=this.value.toLowerCase();
+
+        let rows=document.querySelectorAll("tbody tr");
+
+        rows.forEach(row=>{
+
+            let text=row.innerText.toLowerCase();
+
+            row.style.display=text.includes(filter)?"":"none";
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

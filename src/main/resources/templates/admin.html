@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:linear-gradient(-45deg,#0f172a,#1d4ed8,#7c3aed,#0891b2);
+            background-size:400% 400%;
+            animation:bg 12s ease infinite;
+            color:white;
+        }
+
+        @keyframes bg{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+
+        .sidebar{
+            position:fixed;
+            width:260px;
+            height:100vh;
+            background:rgba(255,255,255,.10);
+            backdrop-filter:blur(18px);
+            padding:25px;
+        }
+
+        .sidebar h2{
+            margin-bottom:35px;
+        }
+
+        .sidebar a{
+            display:block;
+            padding:15px;
+            margin-bottom:12px;
+            text-decoration:none;
+            color:white;
+            border-radius:12px;
+            transition:.3s;
+        }
+
+        .sidebar a:hover{
+            background:#7c3aed;
+        }
+
+        .main{
+            margin-left:280px;
+            padding:35px;
+        }
+
+        .cardx{
+            background:rgba(255,255,255,.12);
+            backdrop-filter:blur(18px);
+            border-radius:20px;
+            padding:25px;
+            transition:.3s;
+            margin-bottom:25px;
+        }
+
+        .cardx:hover{
+            transform:translateY(-8px);
+        }
+
+        table{
+            color:white!important;
+        }
+
+        canvas{
+            background:white;
+            border-radius:15px;
+            padding:15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🎉 EventFlow</h2>
+
+    <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a href="#"><i class="bi bi-calendar-event"></i> Events</a>
+    <a href="#"><i class="bi bi-ticket"></i> Bookings</a>
+    <a href="#"><i class="bi bi-people"></i> Users</a>
+    <a href="#"><i class="bi bi-qr-code"></i> Attendance</a>
+    <a href="/login"><i class="bi bi-box-arrow-right"></i> Logout</a>
+
+</div>
+
+<div class="main">
+
+    <h1>Admin Dashboard</h1>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="cardx">
+                <h5>Total Users</h5>
+                <h2>1,248</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="cardx">
+                <h5>Total Events</h5>
+                <h2>42</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="cardx">
+                <h5>Bookings</h5>
+                <h2>3,420</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="cardx">
+                <h5>Revenue</h5>
+                <h2>₹12.5L</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+            <div class="cardx">
+
+                <h4>Monthly Bookings</h4>
+
+                <canvas id="bookingChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="cardx">
+
+                <h4>Attendance</h4>
+
+                <canvas id="attendanceChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="cardx">
+
+        <h4>Recent Bookings</h4>
+
+        <table class="table table-dark table-hover">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>Event</th>
+                <th>Status</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+                <td>101</td>
+                <td>Deepak</td>
+                <td>Music Festival</td>
+                <td><span class="badge bg-success">Confirmed</span></td>
+
+            </tr>
+
+            <tr>
+
+                <td>102</td>
+                <td>Rahul</td>
+                <td>AI Summit</td>
+                <td><span class="badge bg-warning">Pending</span></td>
+
+            </tr>
+
+            <tr>
+
+                <td>103</td>
+                <td>Priya</td>
+                <td>Startup Expo</td>
+                <td><span class="badge bg-info">Checked-In</span></td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+    new Chart(document.getElementById("bookingChart"),{
+
+        type:'bar',
+
+        data:{
+
+            labels:['Jan','Feb','Mar','Apr','May','Jun'],
+
+            datasets:[{
+
+                label:'Bookings',
+
+                data:[120,180,250,310,400,520]
+
+            }]
+
+        }
+
+    });
+
+    new Chart(document.getElementById("attendanceChart"),{
+
+        type:'doughnut',
+
+        data:{
+
+            labels:['Present','Absent'],
+
+            datasets:[{
+
+                data:[88,12]
+
+            }]
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

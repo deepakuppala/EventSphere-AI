@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Event | EventSphere AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+        }
+
+        /* Navbar */
+
+        header{
+            background:#111827;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:bold;
+            color:#38bdf8;
+        }
+
+        header a{
+            text-decoration:none;
+            color:white;
+            margin-left:20px;
+            transition:.3s;
+        }
+
+        header a:hover{
+            color:#38bdf8;
+        }
+
+        /* Container */
+
+        .container{
+
+            max-width:1200px;
+            margin:50px auto;
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:40px;
+            padding:20px;
+
+        }
+
+        /* Event Card */
+
+        .event{
+
+            background:#1e293b;
+            border-radius:20px;
+            overflow:hidden;
+
+        }
+
+        .event img{
+
+            width:100%;
+            height:350px;
+            object-fit:cover;
+
+        }
+
+        .content{
+
+            padding:30px;
+
+        }
+
+        .badge{
+
+            display:inline-block;
+            background:#2563eb;
+            padding:8px 16px;
+            border-radius:20px;
+            margin-bottom:20px;
+
+        }
+
+        .content h1{
+
+            margin-bottom:15px;
+
+        }
+
+        .info{
+
+            margin:10px 0;
+            color:#cbd5e1;
+
+        }
+
+        .rating{
+
+            color:#facc15;
+            font-size:22px;
+            margin:20px 0;
+
+        }
+
+        /* Booking */
+
+        .booking{
+
+            background:#1e293b;
+            padding:30px;
+            border-radius:20px;
+            position:sticky;
+            top:30px;
+
+        }
+
+        .booking h2{
+
+            margin-bottom:25px;
+
+        }
+
+        .counter{
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:30px 0;
+
+        }
+
+        .counter button{
+
+            width:50px;
+            height:50px;
+            font-size:25px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            border-radius:50%;
+
+        }
+
+        .counter span{
+
+            font-size:30px;
+            margin:0 30px;
+
+        }
+
+        .summary{
+
+            margin-top:30px;
+
+        }
+
+        .row{
+
+            display:flex;
+            justify-content:space-between;
+            margin:15px 0;
+
+        }
+
+        .total{
+
+            border-top:1px solid #334155;
+            padding-top:20px;
+            font-size:22px;
+            font-weight:bold;
+
+        }
+
+        .book-btn{
+
+            width:100%;
+            margin-top:30px;
+            padding:15px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            font-size:18px;
+            border-radius:30px;
+            cursor:pointer;
+            transition:.3s;
+
+        }
+
+        .book-btn:hover{
+
+            background:#1d4ed8;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-calendar-days"></i>
+
+        EventSphere
+
+    </div>
+
+    <div>
+
+        <a href="#">Home</a>
+
+        <a href="#">Events</a>
+
+        <a href="#">Dashboard</a>
+
+        <a href="#">Contact</a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+    <div class="event">
+
+        <img th:src="${event.imageUrl}" alt="Event Image">
+
+        <div class="content">
+
+        <span class="badge"
+              th:text="${event.category.categoryName}">
+        </span>
+
+            <h1 th:text="${event.eventName}"></h1>
+
+            <div class="info">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span th:text="${event.venue.venueName}"></span>
+
+            </div>
+
+            <div class="info">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span th:text="${event.eventDate}"></span>
+
+            </div>
+
+            <div class="info">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <span th:text="${event.eventTime}"></span>
+
+            </div>
+
+            <div class="info">
+
+                <i class="fa-solid fa-user"></i>
+
+                Organizer :
+
+                <span th:text="${event.organizer}"></span>
+
+            </div>
+
+            <div class="info">
+
+                <i class="fa-solid fa-chair"></i>
+
+                Available Seats :
+
+                <span id="availableSeats"
+                      th:text="${event.availableSeats}">
+            </span>
+
+            </div>
+
+            <div class="rating">
+
+                ⭐⭐⭐⭐⭐
+
+            </div>
+
+            <p style="line-height:30px;color:#cbd5e1;"
+               th:text="${event.description}">
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="booking">
+
+        <h2>Book Tickets</h2>
+
+        <form th:action="@{/booking/confirm}" method="post">
+
+            <input type="hidden"
+                   name="eventId"
+                   th:value="${event.id}">
+
+            <input type="hidden"
+                   id="quantityInput"
+                   name="quantity"
+                   value="1">
+
+            <div class="counter">
+
+                <button type="button" onclick="minus()">-</button>
+
+                <span id="qty">1</span>
+
+                <button type="button" onclick="plus()">+</button>
+
+            </div>
+
+            <div class="summary">
+
+                <div class="row">
+
+                    <span>Ticket Price</span>
+
+                    <span>
+                    ₹<span id="ticketPrice"
+                           th:text="${event.ticketPrice}">
+                    </span>
+                </span>
+
+                </div>
+
+                <div class="row">
+
+                    <span>Service Fee</span>
+
+                    <span>₹49</span>
+
+                </div>
+
+                <div class="row">
+
+                    <span>GST</span>
+
+                    <span id="gst">₹0</span>
+
+                </div>
+
+                <div class="row total">
+
+                    <span>Total</span>
+
+                    <span id="total">₹0</span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn" type="submit">
+                Confirm Booking
+            </button>
+
+        </form>
+
+        <div id="successBox"
+             style="display:none;
+                margin-top:20px;
+                padding:20px;
+                background:#22c55e;
+                border-radius:12px;
+                text-align:center;
+                font-weight:bold;">
+
+            🎉 Booking Successful! Redirecting to Ticket...
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <footer style="
+margin-top:60px;
+background:#111827;
+padding:40px;
+text-align:center;
+color:#94a3b8;">
+
+        <h2 style="color:#38bdf8;">
+            EventSphere AI
+        </h2>
+
+        <p style="margin-top:15px;">
+            Experience Events Like Never Before
+        </p>
+
+        <div style="margin-top:20px;font-size:28px;">
+
+            <i class="fab fa-facebook"></i>
+
+            &nbsp;&nbsp;
+
+            <i class="fab fa-instagram"></i>
+
+            &nbsp;&nbsp;
+
+            <i class="fab fa-linkedin"></i>
+
+            &nbsp;&nbsp;
+
+            <i class="fab fa-x-twitter"></i>
+
+        </div>
+
+        <p style="margin-top:25px;">
+            © 2026 EventSphere AI. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script>
+
+        let quantity=1;
+
+        const ticketPrice =
+            parseFloat(document.getElementById("ticketPrice").innerText);
+
+        const serviceFee = 49;
+
+        function updatePrice(){
+
+            document.getElementById("qty").innerText = quantity;
+
+            document.getElementById("quantityInput").value = quantity;
+
+            const gst = Math.round(ticketPrice * quantity * 0.18);
+
+            const total = (ticketPrice * quantity) + serviceFee + gst;
+
+            document.getElementById("gst").innerText = "₹" + gst;
+
+            document.getElementById("total").innerText = "₹" + total;
+
+        }
+
+        function plus(){
+
+            quantity++;
+
+            updatePrice();
+
+        }
+
+        function minus(){
+
+            if(quantity>1){
+
+                quantity--;
+
+                updatePrice();
+
+            }
+
+
+
+
+
+        }
+        updatePrice();
+
+    </script>
+
+    <style>
+
+        @media(max-width:900px){
+
+            .container{
+
+                grid-template-columns:1fr;
+
+            }
+
+            .booking{
+
+                position:relative;
+
+                top:0;
+
+            }
+
+            header{
+
+                flex-direction:column;
+
+                gap:15px;
+
+                text-align:center;
+
+            }
+
+            header div:last-child{
+
+                display:flex;
+
+                flex-wrap:wrap;
+
+                justify-content:center;
+
+                gap:15px;
+
+            }
+
+        }
+
+        @media(max-width:600px){
+
+            .content h1{
+
+                font-size:28px;
+
+            }
+
+            .event img{
+
+                height:220px;
+
+            }
+
+            .counter span{
+
+                margin:0 20px;
+
+                font-size:24px;
+
+            }
+
+            .counter button{
+
+                width:45px;
+
+                height:45px;
+
+            }
+
+        }
+
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | EventSphere</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Poppins,sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            color:white;
+        }
+
+        .payment-box{
+
+            width:600px;
+            background:#1e293b;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+        }
+
+        h1{
+
+            text-align:center;
+            margin-bottom:30px;
+
+        }
+
+        .row{
+
+            display:flex;
+            justify-content:space-between;
+            margin:15px 0;
+            font-size:18px;
+
+        }
+
+        hr{
+
+            margin:20px 0;
+            border:1px solid #334155;
+
+        }
+
+        .methods{
+
+            margin-top:25px;
+
+        }
+
+        .methods label{
+
+            display:block;
+            padding:15px;
+            margin-bottom:12px;
+            background:#334155;
+            border-radius:10px;
+            cursor:pointer;
+
+        }
+
+        input[type=radio]{
+
+            margin-right:12px;
+
+        }
+
+        button{
+
+            width:100%;
+            margin-top:30px;
+            padding:16px;
+            border:none;
+            border-radius:12px;
+            background:#2563eb;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+
+        }
+
+        button:hover{
+
+            background:#1d4ed8;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="payment-box">
+
+    <h1>💳 Payment</h1>
+
+    <div class="row">
+
+        <span>Event</span>
+
+        <span th:text="${booking.event.eventName}"></span>
+
+    </div>
+
+    <div class="row">
+
+        <span>Tickets</span>
+
+        <span th:text="${booking.numberOfTickets}"></span>
+
+    </div>
+
+    <div class="row">
+
+        <span>Total Amount</span>
+
+        <span>
+            ₹<span th:text="${booking.totalAmount}"></span>
+        </span>
+
+    </div>
+
+    <hr>
+
+    <form th:action="@{/payment/pay}" method="post">
+
+        <input type="hidden"
+               name="bookingId"
+               th:value="${booking.bookingId}">
+
+        <div class="methods">
+
+            <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="UPI"
+                       checked>
+
+                UPI
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Credit Card">
+
+                Credit Card
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Debit Card">
+
+                Debit Card
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Net Banking">
+
+                Net Banking
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="Cash">
+
+                Cash
+            </label>
+
+        </div>
+
+        <button type="submit">
+
+            Pay Now
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

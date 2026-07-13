@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventSphere AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        /* Navbar */
+
+        header{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,.08);
+            backdrop-filter:blur(20px);
+            z-index:1000;
+        }
+
+        .logo{
+            font-size:32px;
+            font-weight:bold;
+            color:#38bdf8;
+        }
+
+        nav a{
+            text-decoration:none;
+            color:white;
+            margin:0 18px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        nav a:hover{
+            color:#38bdf8;
+        }
+
+        .btn{
+            padding:12px 28px;
+            background:#3b82f6;
+            border-radius:30px;
+            text-decoration:none;
+            color:white;
+            font-weight:600;
+            transition:.4s;
+        }
+
+        .btn:hover{
+            background:#2563eb;
+            transform:translateY(-4px);
+        }
+
+        /* Hero */
+
+        .hero{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:0 8%;
+            background:
+                    linear-gradient(rgba(15,23,42,.75),
+                    rgba(15,23,42,.85)),
+                    url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80');
+            background-size:cover;
+            background-position:center;
+        }
+
+        .hero-content{
+            max-width:700px;
+            text-align:center;
+        }
+
+        .hero-content h1{
+            font-size:65px;
+            margin-bottom:20px;
+            line-height:1.2;
+        }
+
+        .hero-content span{
+            color:#38bdf8;
+        }
+
+        .hero-content p{
+            font-size:20px;
+            line-height:35px;
+            color:#d1d5db;
+            margin-bottom:35px;
+        }
+
+        .hero-buttons{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+        }
+
+        .outline-btn{
+            padding:12px 28px;
+            border:2px solid #38bdf8;
+            border-radius:30px;
+            text-decoration:none;
+            color:white;
+            transition:.4s;
+        }
+
+        .outline-btn:hover{
+            background:#38bdf8;
+        }
+
+        /* Stats */
+
+        .stats{
+
+            padding:80px 8%;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:30px;
+            background:#111827;
+
+        }
+
+        .stat-card{
+
+            background:#1e293b;
+            padding:40px;
+            border-radius:20px;
+            text-align:center;
+            transition:.4s;
+
+        }
+
+        .stat-card:hover{
+
+            transform:translateY(-10px);
+
+        }
+
+        .stat-card h2{
+
+            font-size:45px;
+            color:#38bdf8;
+            margin-bottom:10px;
+
+        }
+
+        .stat-card p{
+
+            color:#cbd5e1;
+
+        }
+
+        /* Featured */
+
+        .section-title{
+
+            text-align:center;
+            font-size:40px;
+            margin:70px 0;
+
+        }
+
+        .events{
+
+            padding:0 8% 80px;
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+            gap:35px;
+
+        }
+
+        .card{
+
+            background:#1e293b;
+
+            border-radius:20px;
+
+            overflow:hidden;
+
+            transition:.4s;
+
+        }
+
+        .card:hover{
+
+            transform:translateY(-10px);
+
+        }
+
+        .card img{
+
+            width:100%;
+
+            height:230px;
+
+            object-fit:cover;
+
+        }
+
+        .card-content{
+
+            padding:25px;
+
+        }
+
+        .card-content h3{
+
+            margin-bottom:10px;
+
+        }
+
+        .price{
+
+            color:#38bdf8;
+
+            font-size:22px;
+
+            font-weight:bold;
+
+            margin:15px 0;
+
+        }
+
+        .book-btn{
+
+            display:inline-block;
+
+            padding:12px 25px;
+
+            background:#3b82f6;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:25px;
+
+        }
+
+        .book-btn:hover{
+
+            background:#2563eb;
+
+        }
+
+        /* Categories */
+
+        .categories{
+
+            padding:70px 8%;
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+            gap:25px;
+
+        }
+
+        .category{
+
+            background:#1e293b;
+
+            padding:40px;
+
+            text-align:center;
+
+            border-radius:20px;
+
+            transition:.4s;
+
+            cursor:pointer;
+
+        }
+
+        .category:hover{
+
+            background:#2563eb;
+
+            transform:scale(1.05);
+
+        }
+
+        .category i{
+
+            font-size:45px;
+
+            margin-bottom:15px;
+
+            color:#38bdf8;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <i class="fa-solid fa-calendar-days"></i>
+        EventSphere
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/events">Events</a>
+
+        <a href="/dashboard">Dashboard</a>
+
+        <a href="/booking">Bookings</a>
+
+        <a href="/contact">Contact</a>
+
+        <a href="/admin/login">Admin</a>
+
+    </nav>
+
+    <a href="/login" class="btn">Login</a>
+
+</header>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Experience
+            <span>Events</span>
+            Like Never Before
+        </h1>
+
+        <p>
+
+            Discover concerts, hackathons, festivals,
+            workshops and conferences from across India.
+            Book your tickets instantly and enjoy unforgettable experiences.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#" class="btn">
+
+                Explore Events
+
+            </a>
+
+            <a href="#" class="outline-btn">
+
+                Book Tickets
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <h2 class="counter" data-target="500">0</h2>
+
+        <p>Events Hosted</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 class="counter" data-target="100000">0</h2>
+
+        <p>Happy Users</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 class="counter" data-target="1200000">0</h2>
+
+        <p>Tickets Sold</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 class="counter" data-target="98">0</h2>
+
+        <p>Customer Satisfaction</p>
+
+    </div>
+
+</section>
+
+<h2 class="section-title">
+
+    Featured Events
+
+</h2>
+
+<section class="events">
+
+    <div class="card" th:each="event : ${events}">
+
+        <img th:src="${event.imageUrl}">
+
+        <div class="card-content">
+
+            <h3 th:text="${event.eventName}"></h3>
+
+            <p>
+                <span th:text="${event.eventDate}"></span>
+            </p>
+
+            <div class="price">
+                ₹<span th:text="${event.ticketPrice}"></span>
+            </div>
+
+            <a th:href="@{/booking(id=${event.id})}" class="book-btn">
+
+                Book Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<h2 class="section-title">
+
+    Categories
+
+</h2>
+
+<section class="categories">
+
+    <div class="category">
+
+        <i class="fa-solid fa-music"></i>
+
+        <h3>Music</h3>
+
+    </div>
+
+    <div class="category">
+
+        <i class="fa-solid fa-laptop-code"></i>
+
+        <h3>Technology</h3>
+
+    </div>
+
+    <div class="category">
+
+        <i class="fa-solid fa-briefcase"></i>
+
+        <h3>Business</h3>
+
+    </div>
+    <div class="category">
+        <i class="fa-solid fa-futbol"></i>
+        <h3>Sports</h3>
+    </div>
+
+    <div class="category">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h3>Education</h3>
+    </div>
+
+    <div class="category">
+        <i class="fa-solid fa-palette"></i>
+        <h3>Art</h3>
+    </div>
+
+</section>
+
+<!-- Why Choose Us -->
+
+<h2 class="section-title">
+    Why Choose EventSphere?
+</h2>
+
+<section class="stats">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-ticket fa-3x" style="color:#38bdf8"></i>
+        <h3 style="margin-top:20px;">Easy Booking</h3>
+        <p>Book tickets in less than 30 seconds.</p>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-shield-halved fa-3x" style="color:#38bdf8"></i>
+        <h3 style="margin-top:20px;">Secure Payment</h3>
+        <p>100% safe and encrypted payments.</p>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-qrcode fa-3x" style="color:#38bdf8"></i>
+        <h3 style="margin-top:20px;">QR Tickets</h3>
+        <p>Instant digital tickets with QR Code.</p>
+    </div>
+
+    <div class="stat-card">
+        <i class="fa-solid fa-headset fa-3x" style="color:#38bdf8"></i>
+        <h3 style="margin-top:20px;">24x7 Support</h3>
+        <p>We're here whenever you need help.</p>
+    </div>
+
+</section>
+
+<!-- Testimonials -->
+
+<h2 class="section-title">
+    What Our Users Say
+</h2>
+
+<section class="events">
+
+    <div class="card">
+
+        <div class="card-content">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+
+                "Booking tickets has never been this easy.
+                Amazing experience!"
+
+            </p>
+
+            <br>
+
+            <b>- Rahul Sharma</b>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-content">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+
+                "Beautiful UI and seamless booking process."
+
+            </p>
+
+            <br>
+
+            <b>- Sneha Reddy</b>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-content">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+
+                "Best Event Management platform I've ever used."
+
+            </p>
+
+            <br>
+
+            <b>- Arjun Kumar</b>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Contact -->
+
+<h2 class="section-title">
+    Contact Us
+</h2>
+
+<section style="padding:80px 8%;display:flex;justify-content:center;">
+
+    <form style="
+width:650px;
+background:#1e293b;
+padding:40px;
+border-radius:20px;
+">
+
+        <input
+                type="text"
+                placeholder="Full Name"
+                style="
+width:100%;
+padding:15px;
+margin-bottom:20px;
+border:none;
+border-radius:10px;
+">
+
+        <input
+                type="email"
+                placeholder="Email"
+                style="
+width:100%;
+padding:15px;
+margin-bottom:20px;
+border:none;
+border-radius:10px;
+">
+
+        <textarea
+                rows="6"
+                placeholder="Message"
+                style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+margin-bottom:20px;
+"></textarea>
+
+        <button class="btn" style="border:none;cursor:pointer;">
+            Send Message
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Footer -->
+
+<footer style="
+background:#111827;
+padding:50px;
+text-align:center;
+">
+
+    <h2 style="color:#38bdf8;">
+        EventSphere AI
+    </h2>
+
+    <p style="margin:20px 0;color:#cbd5e1;">
+        Experience Events Like Never Before
+    </p>
+
+    <div style="font-size:28px;">
+
+        <i class="fab fa-facebook"></i>
+
+        &nbsp;&nbsp;
+
+        <i class="fab fa-instagram"></i>
+
+        &nbsp;&nbsp;
+
+        <i class="fab fa-linkedin"></i>
+
+        &nbsp;&nbsp;
+
+        <i class="fab fa-x-twitter"></i>
+
+    </div>
+
+    <p style="margin-top:30px;color:gray;">
+
+        © 2026 EventSphere AI. All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- Scroll Button -->
+
+<button
+        id="topBtn"
+        style="
+position:fixed;
+bottom:30px;
+right:30px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#38bdf8;
+color:white;
+font-size:22px;
+cursor:pointer;
+display:none;
+">
+    ↑
+</button>
+
+<script>
+
+    // Counter Animation
+
+    const counters=document.querySelectorAll(".counter");
+
+    counters.forEach(counter=>{
+
+        const update=()=>{
+
+            const target=+counter.dataset.target;
+
+            const count=+counter.innerText;
+
+            const speed=200;
+
+            const inc=target/speed;
+
+            if(count<target){
+
+                counter.innerText=Math.ceil(count+inc);
+
+                setTimeout(update,10);
+
+            }else{
+
+                counter.innerText=target.toLocaleString();
+
+            }
+
+        };
+
+        update();
+
+    });
+
+    // Scroll Button
+
+    const topBtn=document.getElementById("topBtn");
+
+    window.addEventListener("scroll",()=>{
+
+        if(window.scrollY>400){
+
+            topBtn.style.display="block";
+
+        }else{
+
+            topBtn.style.display="none";
+
+        }
+
+    });
+
+    topBtn.onclick=()=>{
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    };
+
+</script>
+
+</body>
+</html>
