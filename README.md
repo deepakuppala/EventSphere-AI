@@ -310,7 +310,7 @@ Full Stack Java Developer
 
 ## ⭐ If you found this project useful, consider giving it a Star!
 
-### Built with ❤️ using Java • Spring Boot • React • MySQL
+### Built with ❤️ using Java • Spring Boot • React • MySQL.
 
 ### **"Simplifying Event Management, One Platform at a Time."**
 
