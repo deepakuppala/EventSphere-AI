@@ -19,7 +19,7 @@
 
 ### **Real-Time • QR Enabled • Responsive • Startup Ready**
 
-*A modern event management platform designed for seamless event creation, booking, ticketing, payments, and attendance management.*
+*A modern event management platform designed for seamless event creation, booking, ticket booking,  secure payments, and attendance management.*
 
 </div>
 
@@ -308,9 +308,9 @@ Full Stack Java Developer
 
 <div align="center">
 
-## ⭐ If you found this project useful, consider giving it a Star!
+## ⭐ If you found this project useful, consider giving it a Star!!
 
-### Built with ❤️ using Java • Spring Boot • React • MySQL.
+### Built with ❤️ using Java • Spring Boot • React • MySQL.Maven
 
 ### **"Simplifying Event Management, One Platform at a Time."**
 
