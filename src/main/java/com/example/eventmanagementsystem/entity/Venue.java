@@ -19,7 +19,7 @@ public class Venue {
 
     private String state;
 
-    private int capacity;
+    private Integer capacity;
 
     private String contactNumber;
 
@@ -27,7 +27,7 @@ public class Venue {
     }
 
     public Venue(Long id, String venueName, String address, String city,
-                 String state, int capacity, String contactNumber) {
+                 String state, Integer capacity, String contactNumber) {
         this.id = id;
         this.venueName = venueName;
         this.address = address;
@@ -77,11 +77,11 @@ public class Venue {
         this.state = state;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
@@ -91,5 +91,16 @@ public class Venue {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    @Column(columnDefinition = "TEXT")
+    private String layoutData;
+
+    public String getLayoutData() {
+        return layoutData;
+    }
+
+    public void setLayoutData(String layoutData) {
+        this.layoutData = layoutData;
     }
 }

@@ -28,6 +28,13 @@ public class Booking {
 
     private String bookingStatus;
 
+    private boolean scanned;
+
+    @Column(unique = true)
+    private String qrToken;
+
+    private Boolean checkedIn = false;
+
     public Booking() {
     }
 
@@ -100,5 +107,29 @@ public class Booking {
 
     public void setBookingStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public String getQrToken() {
+        return qrToken;
+    }
+
+    public void setQrToken(String qrToken) {
+        this.qrToken = qrToken;
+    }
+
+    public boolean isScanned() {
+        return scanned;
+    }
+
+    public void setScanned(boolean scanned) {
+        this.scanned = scanned;
+    }
+
+    public Boolean getCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(Boolean checkedIn) {
+        this.checkedIn = checkedIn;
     }
 }

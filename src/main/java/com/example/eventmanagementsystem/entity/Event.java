@@ -33,6 +33,9 @@ public class Event {
 
     private String status;
 
+    @Column(columnDefinition = "TEXT")
+    private String seatMapState; // JSON representing the live seat map
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -48,7 +51,7 @@ public class Event {
                  LocalDate eventDate, LocalTime eventTime,
                  Double ticketPrice, Integer totalSeats,
                  Integer availableSeats, String organizer,
-                 String imageUrl, String status,
+                 String imageUrl, String status, String seatMapState,
                  Category category, Venue venue) {
 
         this.id = id;
@@ -62,6 +65,7 @@ public class Event {
         this.organizer = organizer;
         this.imageUrl = imageUrl;
         this.status = status;
+        this.seatMapState = seatMapState;
         this.category = category;
         this.venue = venue;
     }
@@ -152,6 +156,14 @@ public class Event {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSeatMapState() {
+        return seatMapState;
+    }
+
+    public void setSeatMapState(String seatMapState) {
+        this.seatMapState = seatMapState;
     }
 
     public Category getCategory() {

@@ -23,6 +23,9 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     // Get All Users
     public List<User> getAllUsers() {

@@ -12,9 +12,11 @@ public class AdminService {
     private AdminRepository adminRepository;
 
     public Admin login(String username, String password) {
-
         return adminRepository.findByUsernameAndPassword(username, password);
+    }
 
+    public Admin findByUsername(String username) {
+        return adminRepository.findByUsername(username);
     }
 
 }

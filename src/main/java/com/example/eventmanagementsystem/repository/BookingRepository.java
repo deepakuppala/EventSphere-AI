@@ -15,4 +15,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     // Latest 10 bookings
     List<Booking> findTop10ByOrderByBookingDateDesc();
 
+    Booking findByQrToken(String qrToken);
+
 }

@@ -1,0 +1,89 @@
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #0f172a, #2563eb, #7c3aed, #06b6d4);
+    background-size: 400% 400%;
+    animation: bg 12s ease infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001; /* Above navbar for this specific page if desired, or we can just let it sit below */
+}
+
+@keyframes bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.login-card {
+    width: 420px;
+    padding: 40px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .35);
+    color: white;
+}
+
+.login-form-group {
+    margin-bottom: 20px;
+}
+
+.login-form-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.login-form-control {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, .15);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+.login-form-control::placeholder {
+    color: #ddd;
+}
+
+.login-form-control:focus {
+    background: rgba(255, 255, 255, .2);
+}
+
+.btn-login {
+    width: 100%;
+    background: #7c3aed;
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: #6d28d9;
+}
+
+.login-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-links a:hover {
+    color: #ffc107;
+}
